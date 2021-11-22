@@ -1,0 +1,370 @@
+Microsoft Windows [Version 10.0.19042.1348]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\PC>cd C:/xampp/mysql/bin
+
+C:\xampp\mysql\bin>mysql.exe -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.4.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> USE PREMIERE
+Database changed
+MariaDB [PREMIERE]> SELECT * FROM REP;
++---------+-----------+------------+-------------+-------+-------+-------+-----------+------+
+| REP_NUM | LAST_NAME | FIRST_NAME | STREET      | CITY  | STATE | ZIP   | COMMISION | RATE |
++---------+-----------+------------+-------------+-------+-------+-------+-----------+------+
+| 20      | KAISER    | VALERIE    | 624 RANDALL | GROVE | FL    | 33321 |  20542.50 | 0.05 |
++---------+-----------+------------+-------------+-------+-------+-------+-----------+------+
+1 row in set (0.001 sec)
+
+MariaDB [PREMIERE]> INSERT INTO REP
+    -> VALUES
+    -> '35','HULL','RICHARD','532 JACKSON','SHELDON','FL','33553','39216.00','0.07');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''35','HULL','RICHARD','532 JACKSON','SHELDON','FL','33553','39216.00','0.07')' at line 3
+MariaDB [PREMIERE]> INSERT INTO REP
+    -> VALUES
+    ->  ('35', 'Hull', 'Richard', '532 Jackson', 'Sheldon', 'FL', '33553', '39216.00', '0.07');
+Query OK, 1 row affected (0.101 sec)
+
+MariaDB [PREMIERE]> INSERT INTO REP
+    -> VALUES
+    -> ('65', 'Perez', 'Juan', '1626 Taylor', 'Fillmore', 'FL', '33336', '23487.00', '0.05');
+Query OK, 1 row affected (0.063 sec)
+
+MariaDB [PREMIERE]> SELECT * FROM REP
+    -> VALUES
+    -> ('65', 'Perez', 'Juan', '1626 Taylor', 'Fillmore', 'FL', '33336', '23487.00', '0.05');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'VALUES
+('65', 'Perez', 'Juan', '1626 Taylor', 'Fillmore', 'FL', '33336', '234...' at line 3
+MariaDB [PREMIERE]> SELECT * FROM REP;
++---------+-----------+------------+-------------+----------+-------+-------+-----------+------+
+| REP_NUM | LAST_NAME | FIRST_NAME | STREET      | CITY     | STATE | ZIP   | COMMISION | RATE |
++---------+-----------+------------+-------------+----------+-------+-------+-----------+------+
+| 20      | KAISER    | VALERIE    | 624 RANDALL | GROVE    | FL    | 33321 |  20542.50 | 0.05 |
+| 35      | Hull      | Richard    | 532 Jackson | Sheldon  | FL    | 33553 |  39216.00 | 0.07 |
+| 65      | Perez     | Juan       | 1626 Taylor | Fillmore | FL    | 33336 |  23487.00 | 0.05 |
++---------+-----------+------------+-------------+----------+-------+-------+-----------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [PREMIERE]> SELECT * FROM CUSTOMER;
+ERROR 1146 (42S02): Table 'premiere.customer' doesn't exist
+MariaDB [PREMIERE]> CREATE TABLE customer (CUSTOMER_NUM CHAR(3) PRIMARY KEY, CUSTOMER_NAME CHAR(25), STREET CHAR(15), CITY CHAR(15), STATE CHAR(2), ZIP CHAR(5), BALANCE DECIMAL(7,2), CREDIT_LIMIT DECIMAL(7,2), REP_NUM CHAR(2) );
+Query OK, 0 rows affected (0.678 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('408', "The Everything Shop", '1828 Raven', 'Crystal', 'FL', '33503', '5285.25', '5000.00', '35');
+Query OK, 1 row affected (0.098 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('148', "Al's Appliance and Sport", '2837 Greenway', 'fillmore', 'FL', '33336', '6550.00', '7500.00', '20');
+Query OK, 1 row affected (0.167 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('282', "BROOKINGS DIRECT", '3827 DEVON', 'GROVE', 'FL', '33321', '431.50', '10000.00', '35');
+Query OK, 1 row affected (0.106 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('356', "FERGUSON'S", '382 WILDWOOD', 'NORTHFIELD', 'FL', '33146', '5785.00', '7500.00', '65');
+Query OK, 1 row affected (0.051 sec)
+
+MariaDB [PREMIERE]> ('462', "BARGAIN'S GALORE", '3829 CENTRAL', 'GROVE', 'FL', '33321', '3412.00', '10000.00', '65');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''462', "BARGAIN'S GALORE", '3829 CENTRAL', 'GROVE', 'FL', '33321', '3412.00',...' at line 1
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('462', "BARGAIN'S GALORE", '3829 CENTRAL', 'GROVE', 'FL', '33321', '3412.00', '10000.00', '65');
+Query OK, 1 row affected (0.092 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('524', "KLINE'S", '838 RIDGELAND', 'FILLMORE', 'FL', '33336', '12762.00', '15000.00', '20');
+Query OK, 1 row affected (0.082 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('608', "JOHNSON'S DEPARTMENT STORE", '372 OXFORD', 'SHELDON', 'FL', '33553', '2106.00', '10000.00', '65');
+Query OK, 1 row affected, 1 warning (0.144 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('687', "LEE'S SPORT AND APPLIANCE", '282 EVERGREEN', 'ALTONVILE', 'FL', '32543', '2851.00', '5000.00', '35');
+Query OK, 1 row affected (0.098 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('725', "DEERFIELD'S FOUR SESONS", '282 COLUMBIA', 'SHELDON', 'FL', '33553', '248.00', '7500.00', '35');
+Query OK, 1 row affected (0.112 sec)
+
+MariaDB [PREMIERE]> INSERT INTO customer
+    -> VALUES
+    -> ('842', "ALL SEASON", '28 LAKEVIEW', 'GROVE', 'FL', '33321', '8221.00', '7500.00', '20');
+Query OK, 1 row affected (0.068 sec)
+
+MariaDB [PREMIERE]> SELECT * FROM CUSTOMER;
++--------------+---------------------------+---------------+------------+-------+-------+----------+--------------+---------+
+| CUSTOMER_NUM | CUSTOMER_NAME             | STREET        | CITY       | STATE | ZIP   | BALANCE  | CREDIT_LIMIT | REP_NUM |
++--------------+---------------------------+---------------+------------+-------+-------+----------+--------------+---------+
+| 148          | Al's Appliance and Sport  | 2837 Greenway | fillmore   | FL    | 33336 |  6550.00 |      7500.00 | 20      |
+| 282          | BROOKINGS DIRECT          | 3827 DEVON    | GROVE      | FL    | 33321 |   431.50 |     10000.00 | 35      |
+| 356          | FERGUSON'S                | 382 WILDWOOD  | NORTHFIELD | FL    | 33146 |  5785.00 |      7500.00 | 65      |
+| 408          | The Everything Shop       | 1828 Raven    | Crystal    | FL    | 33503 |  5285.25 |      5000.00 | 35      |
+| 462          | BARGAIN'S GALORE          | 3829 CENTRAL  | GROVE      | FL    | 33321 |  3412.00 |     10000.00 | 65      |
+| 524          | KLINE'S                   | 838 RIDGELAND | FILLMORE   | FL    | 33336 | 12762.00 |     15000.00 | 20      |
+| 608          | JOHNSON'S DEPARTMENT STOR | 372 OXFORD    | SHELDON    | FL    | 33553 |  2106.00 |     10000.00 | 65      |
+| 687          | LEE'S SPORT AND APPLIANCE | 282 EVERGREEN | ALTONVILE  | FL    | 32543 |  2851.00 |      5000.00 | 35      |
+| 725          | DEERFIELD'S FOUR SESONS   | 282 COLUMBIA  | SHELDON    | FL    | 33553 |   248.00 |      7500.00 | 35      |
+| 842          | ALL SEASON                | 28 LAKEVIEW   | GROVE      | FL    | 33321 |  8221.00 |      7500.00 | 20      |
++--------------+---------------------------+---------------+------------+-------+-------+----------+--------------+---------+
+10 rows in set (0.075 sec)
+
+MariaDB [PREMIERE]> create table part (PART_NUM CHAR(4) PRIMARY KEY, DESCRIPTION CHAR(20), ON_HAND INT, CLASS CHAR(2), WAREHOUSE CHAR(1), PRICE DECIMAL(7,2) );
+Query OK, 0 rows affected (0.493 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('AT94', "IRON", '50', 'HW', '3', '24.95');
+Query OK, 1 row affected (0.134 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('BV06', "HOME GYM", '45', 'SG', '2', '794.95');
+Query OK, 1 row affected (0.347 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('CD52', "MICROWAVE OVEN", '32', 'AP', '1', '165.00');
+Query OK, 1 row affected (0.052 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('DL71', "CORDLESS DRILL", '21', 'HW', '3', '129.95');
+Query OK, 1 row affected (0.131 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('DR93', "GAS RANGE", '8', 'AP', '2', '495.00');
+Query OK, 1 row affected (0.084 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('DW11', "WASHER", '12', 'AP', '3', '399.99');
+Query OK, 1 row affected (0.093 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('FD21', "STAND MIXER", '22', 'HW', '3', '159.95');
+Query OK, 1 row affected (0.122 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('KL62', "DRYER', '12', 'AP', '1', '349.95');
+    "> VALUES
+    ">
+    "> ,;
+    "> O';
+    "> O";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 3
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUE
+    -> ('KL62', "DRYER", '12', 'AP', '1', '349.95');
+Query OK, 1 row affected (0.304 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('KT03', "DISHWASHER", '8', 'AP', '3', '595.00');
+Query OK, 1 row affected (0.092 sec)
+
+MariaDB [PREMIERE]> INSERT INTO part
+    -> VALUES
+    -> ('KV29', "TREADMILL", '9', 'SG', '2', '1390.00');
+Query OK, 1 row affected (0.092 sec)
+
+MariaDB [PREMIERE]> INSERT * FROM PART
+    -> O";
+    "> 0";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* FROM PART
+O";
+0"' at line 1
+MariaDB [PREMIERE]> INSERT * FROM PART;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* FROM PART' at line 1
+MariaDB [PREMIERE]> SELECT * FROM PART;
++----------+----------------+---------+-------+-----------+---------+
+| PART_NUM | DESCRIPTION    | ON_HAND | CLASS | WAREHOUSE | PRICE   |
++----------+----------------+---------+-------+-----------+---------+
+| AT94     | IRON           |      50 | HW    | 3         |   24.95 |
+| BV06     | HOME GYM       |      45 | SG    | 2         |  794.95 |
+| CD52     | MICROWAVE OVEN |      32 | AP    | 1         |  165.00 |
+| DL71     | CORDLESS DRILL |      21 | HW    | 3         |  129.95 |
+| DR93     | GAS RANGE      |       8 | AP    | 2         |  495.00 |
+| DW11     | WASHER         |      12 | AP    | 3         |  399.99 |
+| FD21     | STAND MIXER    |      22 | HW    | 3         |  159.95 |
+| KL62     | DRYER          |      12 | AP    | 1         |  349.95 |
+| KT03     | DISHWASHER     |       8 | AP    | 3         |  595.00 |
+| KV29     | TREADMILL      |       9 | SG    | 2         | 1390.00 |
++----------+----------------+---------+-------+-----------+---------+
+10 rows in set (0.001 sec)
+
+MariaDB [PREMIERE]> CREATE table order_line (ORDER_NUM CHAR(5), PART_NUM CHAR(4), NUM_ORDERED INT, QUOTED_PRICE DECIMAL(7,2) );
+Query OK, 0 rows affected (0.401 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orderline
+    -> VALUE
+    -> ('21608', 'AT94', '11', '21.95');
+ERROR 1146 (42S02): Table 'premiere.orderline' doesn't exist
+MariaDB [PREMIERE]> CREATE table order_line (ORDER_NUM CHAR(5), PART_NUM CHAR(4), NUM_ORDERED INT, QUOTED_PRICE DECIMAL(7,2) );
+ERROR 1050 (42S01): Table 'order_line' already exists
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUE
+    ->  ('21608', '2007-10-20', '148');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    ->  ('21608', 'AT94', 11, '21.95');
+Query OK, 1 row affected (0.131 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    ->  ('21610', 'DR93', 1, '495.OO');
+Query OK, 1 row affected, 1 warning (0.204 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    -> ('21610', 'DW11', 1, '399.99');
+Query OK, 1 row affected (0.048 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    -> ('21613', 'KL62', 4, '329.95');
+Query OK, 1 row affected (0.094 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    -> ('21614', 'KT03', 2, '595.00');
+Query OK, 1 row affected (0.108 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    -> ('21617', 'BV06', 2, '794.95');
+Query OK, 1 row affected (0.104 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    -> ('21617', 'CD52', 4, '150.00');
+Query OK, 1 row affected (0.071 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_lines
+    -> VALUES
+    -> ('21619', 'DR93', 1, '495.00');
+ERROR 1146 (42S02): Table 'premiere.order_lines' doesn't exist
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    -> ('21619', 'DR93', 1, '495.00');
+Query OK, 1 row affected (0.074 sec)
+
+MariaDB [PREMIERE]> INSERT INTO order_line
+    -> VALUES
+    -> ('21623', 'KV29', 2, '1290.00');
+Query OK, 1 row affected (0.071 sec)
+
+MariaDB [PREMIERE]> SELECT * FROM ORDER_LINE;
++-----------+----------+-------------+--------------+
+| ORDER_NUM | PART_NUM | NUM_ORDERED | QUOTED_PRICE |
++-----------+----------+-------------+--------------+
+| 21608     | AT94     |          11 |        21.95 |
+| 21610     | DR93     |           1 |       495.00 |
+| 21610     | DW11     |           1 |       399.99 |
+| 21613     | KL62     |           4 |       329.95 |
+| 21614     | KT03     |           2 |       595.00 |
+| 21617     | BV06     |           2 |       794.95 |
+| 21617     | CD52     |           4 |       150.00 |
+| 21619     | DR93     |           1 |       495.00 |
+| 21623     | KV29     |           2 |      1290.00 |
++-----------+----------+-------------+--------------+
+9 rows in set (0.001 sec)
+
+MariaDB [PREMIERE]> CREATE TABLE ORDERS (
+    -> O";
+    "> O";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '";
+O"' at line 2
+MariaDB [PREMIERE]>
+MariaDB [PREMIERE]> create table orders (ORDER_NUM CHAR(5) PRIMARY KEY, ORDER_DATE DATE, CUSTOMER_NUM CHAR(3) );
+Query OK, 0 rows affected (0.489 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> ('21608', 2007-10-20, '148');
+Query OK, 1 row affected, 1 warning (0.166 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> ('21610', 2007-10-20, '356');
+Query OK, 1 row affected, 1 warning (0.104 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> (21613', 2007-10-21, '408');
+    '> O";
+    '> O";
+    '> O";
+    '> 0";
+    '> 0";
+    '> O';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '', 2007-10-21, '408');
+O";
+O";
+O";
+0";
+0";
+O'' at line 3
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> ('21613', 2007-10-21, '408');
+Query OK, 1 row affected, 1 warning (0.065 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> ('21614', 2007-10-21, '282');
+Query OK, 1 row affected, 1 warning (0.062 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> ('21617', 2007-10-23, '608');
+Query OK, 1 row affected, 1 warning (0.076 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> ('21619', 2007-10-23, '148');
+Query OK, 1 row affected, 1 warning (0.079 sec)
+
+MariaDB [PREMIERE]> INSERT INTO orders
+    -> VALUES
+    -> ('21623', 2007-10-23, '608');
+Query OK, 1 row affected, 1 warning (0.130 sec)
+
+MariaDB [PREMIERE]> SELECT * FROM ORDERS;
++-----------+------------+--------------+
+| ORDER_NUM | ORDER_DATE | CUSTOMER_NUM |
++-----------+------------+--------------+
+| 21608     | 0000-00-00 | 148          |
+| 21610     | 0000-00-00 | 356          |
+| 21613     | 0000-00-00 | 408          |
+| 21614     | 0000-00-00 | 282          |
+| 21617     | 0000-00-00 | 608          |
+| 21619     | 0000-00-00 | 148          |
+| 21623     | 0000-00-00 | 608          |
++-----------+------------+--------------+
+7 rows in set (0.001 sec)
+
+MariaDB [PREMIERE]> Bye
+Ctrl-C -- exit!
+
+C:\xampp\mysql\bin>
